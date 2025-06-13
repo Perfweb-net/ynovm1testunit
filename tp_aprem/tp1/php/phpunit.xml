@@ -4,9 +4,12 @@
          bootstrap="vendor/autoload.php"
          colors="true">
     <coverage>
-        <include>
-            <directory suffix=".php">.</directory>
+         <include>
+            <file>Cart.php</file>
         </include>
+        <exclude>
+            <directory>vendor</directory>
+        </exclude>
     </coverage>
     <testsuites>
         <testsuite name="CartTestSuite">

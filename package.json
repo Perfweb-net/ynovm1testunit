@@ -2,7 +2,9 @@
   "name": "ynov-test",
   "version": "1.0.0",
   "scripts": {
-    "test_tp1": "cd tp1 && python3 -m pytest test_fonctions.py",
-    "test_tp_aprem": "cd tp_aprem/tp1/php && php -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html coverage"
+    "test_tp1": "cd tp1 && python3 -m pytest test_fonctions.py --cov-report=term-missing",
+    "test_tp1c": "cd tp1c && cd tests && pytest -v --cov=src --cov-report=term-missing",
+    "test_tp_aprem_php": "cd tp_aprem/tp1/php && php -dxdebug.mode=coverage vendor/bin/phpunit --coverage-text",
+    "test_tp_aprem_js": "cd tp_aprem/tp1/js && npm test"
   }
 } 
