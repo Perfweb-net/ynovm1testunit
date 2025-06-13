@@ -1,0 +1,12 @@
+{
+    "name": "perfweb/cart-tests",
+    "description": "Tests unitaires pour un panier d'achat",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "classmap": [
+            "."
+        ]
+    }
+} 

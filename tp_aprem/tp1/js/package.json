@@ -1,0 +1,11 @@
+{
+  "name": "cart-tests",
+  "version": "1.0.0",
+  "description": "Tests unitaires pour un panier d'achat",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+} 

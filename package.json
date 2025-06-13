@@ -1,0 +1,8 @@
+{
+  "name": "ynov-test",
+  "version": "1.0.0",
+  "scripts": {
+    "test_tp1": "cd tp1 && python3 -m pytest test_fonctions.py",
+    "test_tp_aprem": "cd tp_aprem/tp1/php && php -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html coverage"
+  }
+} 
