@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 
 class WeatherService:
-    def __init__(self, api_key='fake_api_key'):
+    def __init__(self, api_key='441f54eb9b8819b3a05d1674294bb055'):
         self.api_key = api_key
         self.base_url = "http://api.openweathermap.org/data/2.5/weather"
 

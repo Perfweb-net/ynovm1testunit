@@ -22,7 +22,7 @@ class TestWeather(unittest.TestCase):
             'http://api.openweathermap.org/data/2.5/weather',
             params={
                 'q': self.test_city,
-                'appid': 'fake_api_key',
+                'appid': '441f54eb9b8819b3a05d1674294bb055',
                 'units': 'metric'
             }
         )
