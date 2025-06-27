@@ -1,0 +1,14 @@
+{
+  "name": "bibliotheque-projet",
+  "version": "1.0.0",
+  "description": "Projet Bibliothèque Python avec organisation et automatisation des tests.",
+  "scripts": {
+    "install": "pip install -r requirements.txt",
+    "test": "python3 -m pytest",
+    "coverage": "python3 -m pytest --cov=src/bibliotheque --cov-report=html",
+    "clean": "rm -rf htmlcov/ .coverage .pytest_cache/"
+  },
+  "keywords": ["python", "pytest", "bibliotheque", "tests", "coverage"],
+  "author": "",
+  "license": "MIT"
+} 
