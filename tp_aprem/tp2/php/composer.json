@@ -1,0 +1,12 @@
+{
+  "name": "ynov/tp-test-couverture",
+  "description": "TP sur les tests et la couverture de code",
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "kata\\": "src/"
+    }
+  }
+}

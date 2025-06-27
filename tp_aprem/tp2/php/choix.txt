@@ -1,0 +1,38 @@
+# Documentation des choix pour le TP
+
+## 1. Analyse et couverture initiale
+
+Le code initial n'avait aucun test pertinent. Un premier rapport de couverture (généré avec `phpunit --coverage-html`) aurait montré 0% de couverture sur la classe `CurrencyConverter`.
+
+Le problème majeur était que la classe `CurrencyConverter` dépendait directement de `ConversionRateApi`, qui faisait un appel réseau et échouait systématiquement en environnement de test.
+
+## 2. Doublures de test (Test Doubles)
+
+Pour isoler `CurrencyConverter` de sa dépendance externe, j'ai introduit plusieurs types de doublures.
+
+### Doublure 1 : Fake (Classe `FakeConversionRateApi`)
+- **Pourquoi ?** Un "Fake" est une implémentation simplifiée qui se comporte comme la vraie, mais de manière prévisible et sans effets de bord (comme un appel réseau).
+- **Implémentation** : La classe `FakeConversionRateApi` hérite de `ConversionRateApi` et retourne des taux de change fixes pour des paires de devises spécifiques (ex: USD/EUR). C'est parfait pour tester la logique de calcul avec des données réalistes.
+- **Gain** : Permet de tester le calcul de conversion (`$total += ...`) de manière déterministe et rapide, sans dépendre d'une API externe.
+
+### Doublure 2 : Stub (Classe `StubConversionRateApi`)
+- **Pourquoi ?** Un "Stub" fournit des réponses en conserve aux appels effectués pendant les tests. Il est plus simple qu'un Fake.
+- **Implémentation** : La classe `StubConversionRateApi` retourne toujours `1.0`, quel que soit l'input.
+- **Gain** : Utile pour vérifier la logique de base de la somme sans se soucier des taux de change réels. On s'assure que la boucle et l'addition fonctionnent.
+
+### Doublure 3 : Mock (via `createMock`)
+- **Pourquoi ?** Un "Mock" est un objet qui enregistre les appels qu'il reçoit. On l'utilise pour vérifier des interactions.
+- **Implémentation** :
+    1. Dans `testSumWithSameCurrency`, j'utilise `$this->createMock(...)` et `$api->expects($this->never())` pour m'assurer que si toutes les devises sont les mêmes, l'API n'est **jamais** appelée. C'est une optimisation importante à vérifier.
+    2. Dans `testSumWithApiThrowingException`, le mock est programmé pour lancer une exception, afin de vérifier que le `CurrencyConverter` gère (ou propage) correctement les erreurs de son collaborateur.
+- **Gain** : Les mocks permettent de tester non pas le résultat d'un calcul, mais le **comportement** de la classe : "Est-ce qu'elle a bien appelé cette méthode ?" ou "Comment réagit-elle si son collaborateur échoue ?".
+
+## 3. Nouveaux tests et couverture
+Les nouveaux tests ont été écrits pour couvrir les scénarios suivants :
+- `testSumWithFakeApi`: Teste le cas nominal avec des taux de conversion réels (simulés).
+- `testSumWithStubApi`: Teste un autre cas nominal avec des taux simples.
+- `testSumWithSameCurrency`: Teste le cas où aucune conversion n'est nécessaire et vérifie (grâce au mock) que l'API n'est pas appelée inutilement.
+- `testSumWithApiThrowingException`: Teste la robustesse de la classe face à une défaillance de sa dépendance.
+
+Grâce à ces tests, la couverture de la classe `CurrencyConverter` est passée de 0% à **100%**. Le rapport généré via `phpunit --coverage-text` le confirme.
+Le gain est une confiance accrue dans le code, une meilleure documentation de son comportement via les tests, et une base solide pour le faire évoluer sans régression. 
