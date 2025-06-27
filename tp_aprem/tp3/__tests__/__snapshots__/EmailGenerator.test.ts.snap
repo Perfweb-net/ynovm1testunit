@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmailGenerator should generate a correct confirmation email for an event registration 1`] = `
+"Sujet : Confirmation de votre inscription à Conférence Ynov sur le TDD
+
+Bonjour Jean Dupont,
+
+Nous avons le plaisir de vous confirmer votre inscription à l'événement : Conférence Ynov sur le TDD.
+Celui-ci aura lieu le samedi 26 octobre 2024 à 10:00.
+
+Un e-mail de rappel vous sera envoyé 48h avant l'événement.
+
+Cordialement,
+L'équipe Ynov"
+`;
